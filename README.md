@@ -1,6 +1,7 @@
 # Broccoli Source
 
 [![Build Status](https://travis-ci.org/broccolijs/broccoli-source.svg?branch=master)](https://travis-ci.org/broccolijs/broccoli-source)
+[![Build status](https://ci.appveyor.com/api/projects/status/rrk8d662xcy9521g?svg=true)](https://ci.appveyor.com/project/joliss/broccoli-source)
 
 Broccoli plugin for creating "source" nodes that refer to physical file system
 directories.
