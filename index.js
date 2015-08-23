@@ -14,6 +14,11 @@ function Directory(directoryPath, watched, options) {
   this._instantiationStack = (new Error).stack.replace(/[^\n]*\n/, '')
 }
 
+Directory.prototype.__broccoliFeatures__ = Object.freeze({
+  persistentOutputFlag: true,
+  sourceDirectories: true
+})
+
 Directory.prototype.__broccoliGetInfo__ = function(builderFeatures) {
   if (!builderFeatures || !builderFeatures.persistentOutputFlag || !builderFeatures.sourceDirectories) {
     throw new Error('Minimum builderFeatures required: { persistentOutputFlag: true, sourceDirectories: true }')
