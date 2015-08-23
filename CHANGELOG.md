@@ -1,5 +1,7 @@
 # master
 
+# 1.1.0
+
 * Allow for calling `__broccoliGetInfo__` without argument
 * Add missing `__broccoliFeatures__` object
 
