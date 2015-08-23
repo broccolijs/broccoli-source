@@ -1,7 +1,7 @@
 {
   "name": "broccoli-source",
   "description": "Broccoli plugin for referring to source directories on the file system",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Jo Liss <joliss42@gmail.com>",
   "main": "index.js",
   "license": "MIT",
