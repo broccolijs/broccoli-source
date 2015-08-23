@@ -5,15 +5,11 @@ var chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 var source = require('../')
 
-function getInfo(node) {
-  return node.__broccoliGetInfo__({ persistentOutputFlag: true, sourceDirectories: true })
-}
-
 describe('unit tests', function() {
   describe('__broccoliGetInfo__ API', function() {
     it('returns all attributes', function() {
-      var dir = new source.Directory('some/path', 'true', { name: 'SomeName', annotation: 'some annotation' })
-      var pluginInterface = getInfo(dir)
+      var node = new source.Directory('some/path', 'true', { name: 'SomeName', annotation: 'some annotation' })
+      var pluginInterface = node.__broccoliGetInfo__()
       expect(pluginInterface).to.have.property('nodeType', 'source')
       expect(pluginInterface).to.have.property('sourceDirectory', 'some/path')
       expect(pluginInterface).to.have.property('watched', true)
@@ -23,29 +19,37 @@ describe('unit tests', function() {
     })
 
     it('has default name and annotation', function() {
-      var pluginInterface = getInfo(new source.WatchedDir('some/path'))
+      var pluginInterface = (new source.WatchedDir('some/path')).__broccoliGetInfo__()
       expect(pluginInterface).to.have.property('name', 'WatchedDir')
       expect(pluginInterface.annotation).to.not.exist
     })
 
     it('works for WatchedDir subclass', function() {
-      var pluginInterface = getInfo(new source.WatchedDir('some/path'))
+      var pluginInterface = (new source.WatchedDir('some/path')).__broccoliGetInfo__()
       expect(pluginInterface).to.have.property('sourceDirectory', 'some/path')
       expect(pluginInterface).to.have.property('watched', true)
     })
 
     it('works for UnwatchedDir subclass', function() {
-      var pluginInterface = getInfo(new source.UnwatchedDir('some/path'))
+      var pluginInterface = (new source.UnwatchedDir('some/path')).__broccoliGetInfo__()
       expect(pluginInterface).to.have.property('sourceDirectory', 'some/path')
       expect(pluginInterface).to.have.property('watched', false)
     })
   })
 
   describe('error handling', function() {
-    it('throws an error when not passed a string', function() {
+    it('constructor throws an error when not passed a path', function() {
       expect(function() {
         new source.Directory(12345)
       }).to.throw(/Expected a path/)
+    })
+
+    it('__broccoliGetInfo__ throws an error when not passed enough feature flags', function() {
+      var node = new source.WatchedDir('some/path')
+      expect(function() {
+        // Pass empty features object, rather than missing (= default) argument
+        node.__broccoliGetInfo__({})
+      }).to.throw(/Minimum builderFeatures required/)
     })
   })
 })

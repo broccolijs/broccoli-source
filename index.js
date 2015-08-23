@@ -20,7 +20,8 @@ Directory.prototype.__broccoliFeatures__ = Object.freeze({
 })
 
 Directory.prototype.__broccoliGetInfo__ = function(builderFeatures) {
-  if (!builderFeatures || !builderFeatures.persistentOutputFlag || !builderFeatures.sourceDirectories) {
+  if (builderFeatures == null) builderFeatures = { persistentOutputFlag: true, sourceDirectories: true }
+  if (!builderFeatures.persistentOutputFlag || !builderFeatures.sourceDirectories) {
     throw new Error('Minimum builderFeatures required: { persistentOutputFlag: true, sourceDirectories: true }')
   }
 
@@ -38,7 +39,7 @@ Directory.prototype.read = function(readTree) {
   // Go through same interface as real Broccoli builder, so we don't have
   // separate code paths
 
-  var pluginInterface = this.__broccoliGetInfo__({ persistentOutputFlag: true, sourceDirectories: true })
+  var pluginInterface = this.__broccoliGetInfo__()
 
   if (pluginInterface.watched) {
     return readTree(pluginInterface.sourceDirectory)
