@@ -13,7 +13,7 @@
     "broccoli-plugin"
   ],
   "scripts": {
-    "pretest": "multidep test/multidep.json",
+    "postinstall": "multidep test/multidep.json",
     "test": "mocha"
   },
   "dependencies": {},
@@ -22,6 +22,6 @@
     "chai-as-promised": "^5.1.0",
     "mocha": "^2.2.5",
     "mocha-jshint": "^2.2.3",
-    "multidep": "^1.0.0"
+    "multidep": "^2.0.0"
   }
 }
