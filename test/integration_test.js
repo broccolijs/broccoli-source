@@ -7,7 +7,7 @@ chai.use(chaiAsPromised)
 var source = require('../')
 var multidepRequire = require('multidep')('test/multidep.json')
 
-var Builder_0_16 = multidepRequire('broccoli', '0.16.8').Builder
+var Builder_0_16 = multidepRequire('broccoli', '0.16.9').Builder
 
 describe('integration test', function() {
   var sourcePaths
