@@ -12,6 +12,9 @@
   "keywords": [
     "broccoli-plugin"
   ],
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "pretest": "multidep test/multidep.json",
     "test": "mocha"
