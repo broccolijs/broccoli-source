@@ -16,7 +16,7 @@
     "index.js"
   ],
   "scripts": {
-    "lint": "eslint *.js test/*.js",
+    "lint": "eslint **/*.js",
     "pretest": "multidep test/multidep.json",
     "test": "mocha"
   },
