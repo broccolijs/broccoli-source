@@ -1,5 +1,10 @@
 # master
 
+# 2.0.0
+
+* modernize code-base
+* drop node 4
+
 # 1.1.0
 
 * Allow for calling `__broccoliGetInfo__` without argument
