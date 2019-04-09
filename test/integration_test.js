@@ -1,42 +1,50 @@
-'use strict'
+'use strict';
 
-var fs = require('fs')
-var chai = require('chai'), expect = chai.expect
-var chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
-var source = require('../')
-var multidepRequire = require('multidep')('test/multidep.json')
+const fs = require('fs');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+const source = require('../');
+const multidepRequire = require('multidep')('test/multidep.json');
 
-var Builder_0_16 = multidepRequire('broccoli', '0.16.9').Builder
+const Builder_0_16 = multidepRequire('broccoli', '0.16.9').Builder;
+const expect = chai.expect;
 
-describe('integration test', function() {
-  var sourcePaths
-  beforeEach(function() {
-    sourcePaths = []
-  })
+chai.use(chaiAsPromised);
+
+describe('integration test', () => {
+  let sourcePaths;
+
+  beforeEach(() => {
+    sourcePaths = [];
+  });
+
   function willReadStringTree(s) {
-    sourcePaths.push(s)
+    sourcePaths.push(s);
   }
 
-  describe('.read-based builder', function() {
-    it('WatchedDir watches the source directory', function() {
-      var builder = new Builder_0_16(new source.WatchedDir('test/fixtures'))
-      return builder.build(willReadStringTree).then(function(results) {
-        expect(sourcePaths).to.deep.equal(['test/fixtures'])
-        expect(fs.existsSync(results.directory + '/foo.txt')).to.be.ok
-      }).finally(function() {
-        return builder.cleanup()
-      })
-    })
+  describe('.read-based builder', () => {
+    it('WatchedDir watches the source directory', () => {
+      let builder = new Builder_0_16(new source.WatchedDir('test/fixtures'));
 
-    it('UnwatchedDir does not watch the source directory', function() {
-      var builder = new Builder_0_16(new source.UnwatchedDir('test/fixtures'))
-      return builder.build(willReadStringTree).then(function(results) {
-        expect(sourcePaths).to.deep.equal([])
-        expect(fs.existsSync(results.directory + '/foo.txt')).to.be.ok
-      }).finally(function() {
-        return builder.cleanup()
-      })
-    })
-  })
-})
+      return builder
+        .build(willReadStringTree)
+        .then(results => {
+          expect(sourcePaths).to.deep.equal(['test/fixtures']);
+          expect(fs.existsSync(results.directory + '/foo.txt')).to.be.ok;
+        })
+        .finally(() => builder.cleanup());
+    });
+
+    it('UnwatchedDir does not watch the source directory', () => {
+      let builder = new Builder_0_16(new source.UnwatchedDir('test/fixtures'));
+
+      return builder
+        .build(willReadStringTree)
+        .then(results => {
+          expect(sourcePaths).to.deep.equal([]);
+          expect(fs.existsSync(results.directory + '/foo.txt')).to.be.ok;
+        })
+        .finally(() => builder.cleanup());
+    });
+  });
+});
