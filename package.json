@@ -22,7 +22,8 @@
     "build": "tsc -b .",
     "clean": "tsc -b --clean .",
     "lint": "eslint **/*.ts",
-    "test": "yarn lint && yarn build && yarn test:js",
+    "test": "yarn lint && yarn build && yarn test:pre && yarn test:js",
+    "test:pre": "multidep test/multidep.json",
     "test:js": "mocha -r ts-node/register **/*.test.ts",
     "watch": "tsc --watch ."
   },
