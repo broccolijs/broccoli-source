@@ -1,12 +1,38 @@
-'use strict';
-
 const broccoliFeatures = Object.freeze({
   persistentOutputFlag: true,
   sourceDirectories: true,
 });
 
+interface DirectoryOptions {
+  annotation?: string,
+  name?: string
+}
+
+interface BroccoliFeatures {
+  persistentOutputFlag?: boolean,
+  sourceDirectories?: boolean
+}
+
+interface BroccoliGetInfo {
+  nodeType: string,
+  sourceDirectory: string,
+  watched: boolean,
+  instantiationStack: string | undefined,
+  name: string,
+  annotation: string | undefined,
+}
+
+type ReadTreeCallback = (sourceDirectory: string) => void;
+
 class Directory {
-  constructor(directoryPath, watched, options) {
+  _directoryPath: string;
+  _watched: boolean;
+  _name: string;
+  _annotation: string | undefined;
+  _instantiationStack: string | undefined;
+  __broccoliFeatures__: BroccoliFeatures;
+
+  constructor(directoryPath: string, watched?: boolean | string, options?: DirectoryOptions) {
     if (typeof directoryPath !== 'string') {
       throw new Error('Expected a path (string), got ' + directoryPath);
     }
@@ -19,11 +45,16 @@ class Directory {
     this._annotation = options.annotation;
 
     // Remember current call stack (minus "Error" line)
-    this._instantiationStack = new Error().stack.replace(/[^\n]*\n/, '');
+    let errorStack = new Error().stack;
+    if (errorStack === 'string') {
+      errorStack = errorStack.replace(/[^\n]*\n/, '');
+    }
+
+    this._instantiationStack = errorStack;
     this.__broccoliFeatures__ = broccoliFeatures;
   }
 
-  __broccoliGetInfo__(builderFeatures) {
+  __broccoliGetInfo__(builderFeatures?: BroccoliFeatures): BroccoliGetInfo {
     if (builderFeatures == null) {
       builderFeatures = { persistentOutputFlag: true, sourceDirectories: true };
     }
@@ -44,7 +75,7 @@ class Directory {
     };
   }
 
-  read(readTree) {
+  read(readTree: ReadTreeCallback) {
     // Go through same interface as real Broccoli builder, so we don't have
     // separate code paths
 
@@ -60,15 +91,16 @@ class Directory {
   cleanup() {}
 }
 
-module.exports.Directory = Directory;
-module.exports.WatchedDir = class WatchedDir extends Directory {
-  constructor(directoryPath, options) {
+class WatchedDir extends Directory {
+  constructor(directoryPath: string, options?: DirectoryOptions) {
     super(directoryPath, true, options);
   }
 };
 
-module.exports.UnwatchedDir = class UnwatchedDir extends Directory {
-  constructor(directoryPath, options) {
+class UnwatchedDir extends Directory {
+  constructor(directoryPath: string, options?: DirectoryOptions) {
     super(directoryPath, false, options);
   }
 };
+
+export = { Directory, WatchedDir, UnwatchedDir };

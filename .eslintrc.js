@@ -1,24 +1,22 @@
 module.exports = {
     root: true,
-    parserOptions: {
-      ecmaVersion: 6,
-    },
-    plugins: ['node', 'prettier'],
-    extends: ['eslint:recommended', 'plugin:node/recommended'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint', 'mocha', 'prettier'],
+    extends: ['plugin:@typescript-eslint/recommended'],
     env: {
       node: true,
     },
     rules: {
-      strict: 'error',
       'no-var': 'error',
       'no-console': 'off',
-      'no-process-exit': 'off',
       'object-shorthand': 'error',
       'prettier/prettier': ['error', require('./prettier.config')],
+      '@typescript-eslint/indent': ['error', 2],
+      '@typescript-eslint/explicit-function-return-type': 'off'
     },
     overrides: [
       {
-        files: ['test/**/*.js'],
+        files: ['test/**/*.ts'],
         plugins: ['mocha'],
         env: {
           mocha: true,

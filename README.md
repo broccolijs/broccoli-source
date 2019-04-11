@@ -11,17 +11,15 @@ directories.
 In `Brocfile.js`:
 
 ```js
-var broccoliSource = require('broccoli-source');
-var WatchedDir = broccoliSource.WatchedDir;
-var UnwatchedDir = broccoliSource.UnwatchedDir;
+const { WatchedDir, UnwatchedDir } = require('broccoli-source');
 
 // Refers to the ./lib directory on disk, and watches it.
-var lib = new WatchedDir('lib');
+const lib = new WatchedDir('lib');
 // Note: this is equivalent to the deprecated plain-string syntax:
-//var lib = 'lib';
+// const lib = 'lib';
 
 // Refers to the ./bower_components/jquery directory, but does not watch it.
-var jquery = new UnwatchedDir('bower_components/jquery');
+const jquery = new UnwatchedDir('bower_components/jquery');
 ```
 
 ## Reference
@@ -37,8 +35,7 @@ trigger a rebuild whenever something changes.
 
   The directory must exist, or Broccoli will abort.
 
-* `options`
-
+* `options`:
      * `annotation`: A human-readable description for this node.
 
 ### `new UnwatchedDir(directoryPath, options)`

@@ -1,8 +1,6 @@
-'use strict';
-
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const source = require('../');
+import chai = require('chai');
+import chaiAsPromised = require('chai-as-promised');
+import source = require('../');
 
 const expect = chai.expect;
 chai.use(chaiAsPromised);
@@ -45,6 +43,7 @@ describe('unit tests', () => {
   describe('error handling', () => {
     it('constructor throws an error when not passed a path', () => {
       expect(() => {
+        // @ts-ignore
         new source.Directory(12345);
       }).to.throw(/Expected a path/);
     });
