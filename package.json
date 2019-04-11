@@ -3,7 +3,7 @@
   "description": "Broccoli plugin for referring to source directories on the file system",
   "version": "2.0.0",
   "author": "Jo Liss <joliss42@gmail.com>",
-  "main": "index.ts",
+  "main": "index.js",
   "types": "index.d.ts",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,8 @@
   "files": [
     "index.js",
     "index.ts",
-    "index.d.ts"
+    "index.d.ts",
+    "index.js.map"
   ],
   "scripts": {
     "build": "tsc -b .",
@@ -24,7 +25,7 @@
     "lint": "eslint **/*.ts",
     "test": "yarn build && yarn test:pre && yarn test:js",
     "test:pre": "multidep test/multidep.json",
-    "test:js": "mocha -r ts-node/register **/*.test.ts",
+    "test:js": "mocha test/*.test.js",
     "watch": "tsc --watch ."
   },
   "dependencies": {},
@@ -44,7 +45,6 @@
     "mocha": "^6.1.2",
     "multidep": "^2.0.0",
     "prettier": "^1.16.4",
-    "ts-node": "^8.0.3",
     "typescript": "^3.4.3"
   },
   "engines": {

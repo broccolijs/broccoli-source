@@ -3,6 +3,7 @@
 
 **/*.js
 **/*.d.ts
+**/*.js.map
 
 !prettier.config.js
 !types/*.d.ts
