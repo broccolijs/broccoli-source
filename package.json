@@ -1,7 +1,7 @@
 {
   "name": "broccoli-source",
   "description": "Broccoli plugin for referring to source directories on the file system",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "Jo Liss <joliss42@gmail.com>",
   "main": "index.js",
   "types": "index.d.ts",
@@ -23,6 +23,7 @@
     "build": "tsc -b .",
     "clean": "tsc -b --clean .",
     "lint": "eslint **/*.ts",
+    "prepublishOnly": "yarn build",
     "test": "yarn build && yarn test:pre && yarn test:js",
     "test:pre": "multidep test/multidep.json",
     "test:js": "mocha test/*.test.js",
