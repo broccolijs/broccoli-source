@@ -24,6 +24,8 @@ interface BroccoliGetInfo {
 
 type ReadTreeCallback = (sourceDirectory: string) => void;
 
+import * as path from 'path';
+
 class Directory {
   _directoryPath: string;
   _watched: boolean;
@@ -37,7 +39,8 @@ class Directory {
       throw new Error('Expected a path (string), got ' + directoryPath);
     }
 
-    this._directoryPath = directoryPath;
+    this._directoryPath = path.resolve(directoryPath);
+
     this._watched = !!watched;
 
     options = options || {};
