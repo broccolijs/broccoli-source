@@ -1,4 +1,5 @@
 import fs = require('fs');
+import path = require('path');
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
 import source = require('../index');
@@ -28,7 +29,7 @@ describe('integration test', () => {
       return builder
         .build(willReadStringTree)
         .then(results => {
-          expect(sourcePaths).to.deep.equal(['test/fixtures']);
+          expect(sourcePaths).to.deep.equal([path.resolve('test/fixtures')]);
           expect(fs.existsSync(results.directory + '/foo.txt')).to.be.ok;
         })
         .finally(() => builder.cleanup());

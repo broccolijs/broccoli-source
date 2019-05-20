@@ -1,3 +1,4 @@
+import * as path from 'path';
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
 import source = require('../');
@@ -7,6 +8,28 @@ chai.use(chaiAsPromised);
 
 describe('unit tests', () => {
   describe('__broccoliGetInfo__ API', () => {
+    it('normalizes relative paths', () => {
+      let node = new source.Directory('some/path', 'true', {
+        name: 'SomeName',
+        annotation: 'some annotation',
+      });
+
+      let pluginInterface = node.__broccoliGetInfo__();
+
+      expect(pluginInterface).to.have.property('sourceDirectory', path.resolve('some/path'));
+    });
+
+    it('passes through absolute paths', () => {
+      let node = new source.Directory(path.resolve('some/path'), 'true', {
+        name: 'SomeName',
+        annotation: 'some annotation',
+      });
+
+      let pluginInterface = node.__broccoliGetInfo__();
+
+      expect(pluginInterface).to.have.property('sourceDirectory', path.resolve('some/path'));
+    });
+
     it('returns all attributes', () => {
       let node = new source.Directory('some/path', 'true', {
         name: 'SomeName',
@@ -14,7 +37,7 @@ describe('unit tests', () => {
       });
       let pluginInterface = node.__broccoliGetInfo__();
       expect(pluginInterface).to.have.property('nodeType', 'source');
-      expect(pluginInterface).to.have.property('sourceDirectory', 'some/path');
+      expect(pluginInterface).to.have.property('sourceDirectory', path.resolve('some/path'));
       expect(pluginInterface).to.have.property('watched', true);
       expect(pluginInterface).to.have.property('name', 'SomeName');
       expect(pluginInterface).to.have.property('annotation', 'some annotation');
@@ -29,13 +52,13 @@ describe('unit tests', () => {
 
     it('works for WatchedDir subclass', () => {
       let pluginInterface = new source.WatchedDir('some/path').__broccoliGetInfo__();
-      expect(pluginInterface).to.have.property('sourceDirectory', 'some/path');
+      expect(pluginInterface).to.have.property('sourceDirectory', path.resolve('some/path'));
       expect(pluginInterface).to.have.property('watched', true);
     });
 
     it('works for UnwatchedDir subclass', () => {
       let pluginInterface = new source.UnwatchedDir('some/path').__broccoliGetInfo__();
-      expect(pluginInterface).to.have.property('sourceDirectory', 'some/path');
+      expect(pluginInterface).to.have.property('sourceDirectory', path.resolve('some/path'));
       expect(pluginInterface).to.have.property('watched', false);
     });
   });
