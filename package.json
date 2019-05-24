@@ -1,32 +1,33 @@
 {
   "name": "broccoli-source",
-  "description": "Broccoli plugin for referring to source directories on the file system",
   "version": "2.1.1",
-  "author": "Jo Liss <joliss42@gmail.com>",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "license": "MIT",
+  "description": "Broccoli plugin for referring to source directories on the file system",
+  "keywords": [
+    "broccoli-plugin"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/broccolijs/broccoli-source"
   },
-  "keywords": [
-    "broccoli-plugin"
-  ],
+  "license": "MIT",
+  "author": "Jo Liss <joliss42@gmail.com>",
   "files": [
     "index.js",
     "index.ts",
     "index.d.ts",
     "index.js.map"
   ],
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc -b .",
     "clean": "tsc -b --clean .",
     "lint": "eslint **/*.ts",
     "prepublishOnly": "yarn build",
+    "release": "release-it",
     "test": "yarn build && yarn test:pre && yarn test:js",
-    "test:pre": "multidep test/multidep.json",
     "test:js": "mocha test/*.test.js",
+    "test:pre": "multidep test/multidep.json",
     "watch": "tsc --watch ."
   },
   "dependencies": {},
@@ -46,9 +47,27 @@
     "mocha": "^6.1.2",
     "multidep": "^2.0.0",
     "prettier": "^1.16.4",
+    "release-it": "^12.2.1",
+    "release-it-lerna-changelog": "^1.0.3",
     "typescript": "^3.4.3"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md"
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    }
   }
 }

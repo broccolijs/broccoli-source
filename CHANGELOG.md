@@ -1,5 +1,3 @@
-# master
-
 # 2.1.0
 * convert the project to typescript
 
