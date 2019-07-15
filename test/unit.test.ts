@@ -1,7 +1,7 @@
 import * as path from 'path';
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
-import source = require('../');
+import source = require('../src/index');
 
 const expect = chai.expect;
 chai.use(chaiAsPromised);
