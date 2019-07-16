@@ -1,5 +1,5 @@
-import { FeatureSet, SourceNodeInfo, InputNode } from 'broccoli-node-api';
-import { SourceOptions, MapSeriersIterator } from './interfaces';
+import { FeatureSet, SourceNodeInfo, InputNode, SourceNode } from 'broccoli-node-api';
+import { ConstructorOptions, MapSeriersIterator } from './interfaces';
 import * as path from 'path';
 
 const BROCCOLI_FEATURES = Object.freeze({
@@ -7,15 +7,15 @@ const BROCCOLI_FEATURES = Object.freeze({
   sourceDirectories: true,
 });
 
-class Directory {
-  _directoryPath: string;
-  _watched: boolean;
-  _name: string;
-  _annotation?: string;
-  _instantiationStack: string;
+class Directory implements SourceNode {
+  private _directoryPath: string;
+  private _watched: boolean;
+  private _name: string;
+  private _annotation?: string;
+  private _instantiationStack: string;
   __broccoliFeatures__: FeatureSet;
 
-  constructor(directoryPath: string, watched: boolean | string, options: SourceOptions = {}) {
+  constructor(directoryPath: string, watched: boolean | string, options: ConstructorOptions = {}) {
     if (typeof directoryPath !== 'string') {
       throw new Error('Expected a path (string), got ' + directoryPath);
     }
@@ -54,7 +54,6 @@ class Directory {
   read(readTree: MapSeriersIterator<InputNode>) {
     // Go through same interface as real Broccoli builder, so we don't have
     // separate code paths
-
     let pluginInterface = this.__broccoliGetInfo__();
 
     if (pluginInterface.watched) {
@@ -68,13 +67,13 @@ class Directory {
 }
 
 class WatchedDir extends Directory {
-  constructor(directoryPath: string, options?: SourceOptions) {
+  constructor(directoryPath: string, options?: ConstructorOptions) {
     super(directoryPath, true, options);
   }
 }
 
 class UnwatchedDir extends Directory {
-  constructor(directoryPath: string, options?: SourceOptions) {
+  constructor(directoryPath: string, options?: ConstructorOptions) {
     super(directoryPath, false, options);
   }
 }
