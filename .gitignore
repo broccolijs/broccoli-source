@@ -1,9 +1,4 @@
 /node_modules/
 /test/multidep/
 
-**/*.js
-**/*.d.ts
-**/*.js.map
-
-!prettier.config.js
-!types/*.d.ts
+dist/

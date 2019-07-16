@@ -2,7 +2,7 @@ import fs = require('fs');
 import path = require('path');
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
-import source = require('../index');
+import source = require('../src/index');
 import multidep = require('multidep');
 
 const multidepRequire = multidep('test/multidep.json');

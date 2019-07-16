@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
+      "rootDirs": ["src", "test"],
+      "outDir": "dist",
       "declaration": true,
       "strict": true,
       "moduleResolution": "node",
       "module": "commonjs",
       "sourceMap": true,
+      "declarationMap": true,
       "target": "es6",
       "baseUrl": ".",
       "paths": {

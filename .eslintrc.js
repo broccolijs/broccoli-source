@@ -12,7 +12,8 @@ module.exports = {
       'object-shorthand': 'error',
       'prettier/prettier': ['error', require('./prettier.config')],
       '@typescript-eslint/indent': ['error', 2],
-      '@typescript-eslint/explicit-function-return-type': 'off'
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-member-accessibility': 'off',
     },
     overrides: [
       {
