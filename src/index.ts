@@ -1,5 +1,5 @@
 import { FeatureSet, SourceNodeInfo, InputNode, SourceNode } from 'broccoli-node-api';
-import { ConstructorOptions, MapSeriersIterator } from './interfaces';
+import { ConstructorOptions, MapSeriesIterator } from './interfaces';
 import * as path from 'path';
 
 const BROCCOLI_FEATURES = Object.freeze({
@@ -51,7 +51,7 @@ class Directory implements SourceNode {
     };
   }
 
-  read(readTree: MapSeriersIterator<InputNode>) {
+  read(readTree: MapSeriesIterator<InputNode>) {
     // Go through same interface as real Broccoli builder, so we don't have
     // separate code paths
     let pluginInterface = this.__broccoliGetInfo__();

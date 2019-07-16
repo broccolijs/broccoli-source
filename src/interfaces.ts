@@ -10,4 +10,4 @@ export interface ConstructorOptions {
   annotation?: string;
 }
 
-export type MapSeriersIterator<T> = (item: T, index?: number, array?: T[]) => Promise<T> | T;
+export type MapSeriesIterator<T> = (item: T, index?: number, array?: T[]) => Promise<T> | T;
