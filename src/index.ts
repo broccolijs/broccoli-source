@@ -67,12 +67,36 @@ class Directory implements SourceNode {
 }
 
 class WatchedDir extends Directory {
+  /**
+   * Create a Broccoli node referring to a directory on disk.
+   * The Broccoli watcher used by broccoli serve will watch the directory
+   * and all subdirectories, and trigger a rebuild whenever something changes.
+   *
+   * @param directoryPath
+   * A path to a directory, either absolute, or relative to the working directory.
+   * @param options.annotation
+   * A human-readable description for this node.
+   * @param options.name
+   * A human-readable name for this node.
+   */
   constructor(directoryPath: string, options?: ConstructorOptions) {
     super(directoryPath, true, options);
   }
 }
 
 class UnwatchedDir extends Directory {
+  /**
+   * Create a Broccoli node referring to a directory on disk.
+   * The Broccoli watcher used by broccoli serve will not watch the directory
+   * or any subdirectories, and will not trigger a rebuild whenever something changes.
+   *
+   * @param directoryPath
+   * A path to a directory, absolute or relative, to the working directory.
+   * @param options.annotation
+   * A human-readable description for this node.
+   * @param options.name
+   * A human-readable name for this node.
+   */
   constructor(directoryPath: string, options?: ConstructorOptions) {
     super(directoryPath, false, options);
   }
