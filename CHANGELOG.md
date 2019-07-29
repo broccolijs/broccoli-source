@@ -1,3 +1,14 @@
+## v3.0.0 (2019-07-29)
+
+#### :bug: Bug Fix
+* [#11](https://github.com/broccolijs/broccoli-source/pull/11) Fix typescript definitions and build process ([@thoov](https://github.com/thoov))
+
+#### :boom: Breaking Change
+* [#12](https://github.com/broccolijs/broccoli-source/pull/12) Drop node 6 support ([@thoov](https://github.com/thoov))
+
+#### Committers: 1
+- Travis Hoover ([@thoov](https://github.com/thoov))
+
 ## v2.1.2 (2019-05-24)
 
 #### :bug: Bug Fix
