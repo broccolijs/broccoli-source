@@ -12,7 +12,8 @@ class Directory implements SourceNode {
   private _watched: boolean;
   private _name: string;
   private _annotation?: string;
-  private _instantiationStack: string;
+  private _instantiationError: Error;
+
   __broccoliFeatures__: FeatureSet;
 
   constructor(directoryPath: string, watched: boolean | string, options: ConstructorOptions = {}) {
@@ -25,11 +26,11 @@ class Directory implements SourceNode {
     this._watched = !!watched;
     this._name = options.name || (this.constructor && this.constructor.name) || 'Directory';
     this._annotation = options.annotation;
-
-    // Remember current call stack (minus "Error" line)
-    let errorStack = '' + new Error().stack;
-    this._instantiationStack = errorStack.replace(/[^\n]*\n/, '');
     this.__broccoliFeatures__ = BROCCOLI_FEATURES;
+    // capture an instantiation error so that we can lazily access the stack to
+    // let folks know where a plugin was instantiated from if there is a build
+    // error
+    this._instantiationError = new Error();
   }
 
   __broccoliGetInfo__(
@@ -41,11 +42,16 @@ class Directory implements SourceNode {
       );
     }
 
+    const { _instantiationError } = this;
+
     return {
       nodeType: 'source',
       sourceDirectory: this._directoryPath,
       watched: this._watched,
-      instantiationStack: this._instantiationStack,
+      get instantiationStack() {
+        let errorStack = '' + _instantiationError.stack;
+        return errorStack.replace(/[^\n]*\n/, '');
+      },
       name: this._name,
       annotation: this._annotation,
     };
