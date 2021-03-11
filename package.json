@@ -1,6 +1,6 @@
 {
   "name": "broccoli-source",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Broccoli plugin for referring to source directories on the file system",
   "keywords": [
     "broccoli-plugin"

@@ -1,3 +1,11 @@
+## v3.0.1 (2021-03-11)
+
+#### :bug: Bug Fix
+* [#23](https://github.com/broccolijs/broccoli-source/pull/23) Avoid forcing eager calculation of error stacks. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 1
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v3.0.0 (2019-07-29)
 
 #### :bug: Bug Fix
